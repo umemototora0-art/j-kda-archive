@@ -1,0 +1,69 @@
+---
+import { getYokaiList } from '../lib/notion.js';
+const yokaiList = await getYokaiList();
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>J-KDA | 民間伝承・怪異異聞構造化データベース</title>
+  <style>
+    body { background-color: #f4f4f6; color: #111; font-family: sans-serif; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; background: #fff; border: 2px solid #222; padding: 30px; box-shadow: 4px 4px 0px #222; }
+    .header { border-bottom: 2px solid #222; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .title { font-family: serif; font-size: 24px; font-weight: bold; letter-spacing: 2px; }
+    .stamp { border: 2px solid #b22222; color: #b22222; padding: 4px 8px; font-size: 12px; font-weight: bold; }
+    .notice { background: #eee; border-left: 4px solid #222; padding: 10px 15px; font-size: 13px; margin-bottom: 25px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #222; padding: 10px; text-align: left; font-size: 14px; }
+    th { background: #e5e5e7; font-family: monospace; }
+    .mono { font-family: monospace; font-weight: bold; }
+    .detail-box { background: #fafafa; border: 1px solid #ccc; padding: 15px; margin-top: 10px; font-size: 13px; line-height: 1.6; }
+    .tag { background: #222; color: #fff; padding: 2px 6px; font-size: 11px; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">J-KDA ARCHIVE</div>
+      <div class="stamp">【開示区分：公刊可】</div>
+    </div>
+
+    <div class="notice">
+      <strong>【閲覧規約】</strong> 本アーカイブは国内に伝播する民間伝承・怪異事象を学術・二次創作支援を目的に構造化保存する公的データベースです。
+    </div>
+
+    <h3>■ 機密識別アーカイブ一覧</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>識別ID</th>
+          <th>伝承名称</th>
+          <th>伝承規模</th>
+          <th>危険度区分</th>
+        </tr>
+      </thead>
+      <tbody>
+        {yokaiList.map((item) => (
+          <tr>
+            <td class="mono">{item.ky_id}</td>
+            <td><strong>{item.name}</strong></td>
+            <td><span class="tag">{item.scale}</span></td>
+            <td>{item.risk}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    {yokaiList.map((item) => (
+      <div class="detail-box">
+        <h4>[{item.ky_id}] {item.name}</h4>
+        <p><strong>【概要】</strong> {item.overview}</p>
+        <p><strong>【回避規範】</strong> {item.avoidance}</p>
+        <p><strong>【一次文献記録】</strong> {item.literature}</p>
+      </div>
+    ))}
+  </div>
+</body>
+</html>
