@@ -1,0 +1,14 @@
+{
+  "name": "j-kda-archive",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "astro": "^4.15.0"
+  }
+}
